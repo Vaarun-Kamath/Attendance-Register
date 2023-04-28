@@ -2,12 +2,11 @@ import streamlit as st
 from datetime import datetime,date,time
 import calendar
 import pandas as pd
-from openpyxl import load_workbook
 import time
 
 file_record = "AttendanceRecord.xlsx"
 
-def updateExcel(name_val,date_val,duration_val,time_val,am_pm_val,present_val):
+def updateExcel(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments):
     # time_val = time_val.strftime("%H:%M")
     timestr = time_val + f" {am_pm_val}"
     date_str = date_val.strftime('%d/%m/%Y')
@@ -21,7 +20,9 @@ def updateExcel(name_val,date_val,duration_val,time_val,am_pm_val,present_val):
         'Day': [calendar.day_name[date_val.weekday()]],
         'Duration (Min)': [int(duration_val)],
         'Time': [timestr],
-        'Attendance': [present_val]
+        'Attendance': [present_val],
+        'Comments':[comments],
+        
     }
     df = pd.DataFrame(data = new_data)
     # st.write(new_data)
@@ -83,12 +84,15 @@ am_pm_val = st.radio('[Placeholder]AM-PM',options=('AM', 'PM'),label_visibility=
 # Attendance Input
 present_val = st.radio(f"Was {name_val} Present or Absent",('Present', 'Absent'))
 
+# Additional Comments
+comments = st.text_input('Comments')
+
 # If Student is absent then duraiton is 0
 if(present_val == "Absent"):
     duration_val = 0
 
 # Submit Button
-submitted = st.button("Submit",on_click=updateExcel,args=(name_val,date_val,duration_val,time_val,am_pm_val,present_val))
+submitted = st.button("Submit",on_click=updateExcel,args=(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments))
 
 if submitted:
     st.markdown(f":blue[Student]:&emsp;&emsp;{name_val}")
