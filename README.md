@@ -15,6 +15,33 @@ This Python script is a simple web application created using Streamlit that allo
 ### New Student Entry
 - **Add New Student:** You can add a new student's name to the list of registered students. The script will update the list of students and allow you to record attendance for the new student.
 
+## Steps to run the application
+- Create a virtual environment, run the following command after cloning the repo
+  ```bash
+  python -m venv venv
+  ```
+- Activate the virtual environment
+  - Windows:
+    ```bash
+    venv\Scripts\activate
+    ```
+  - MacOS:
+    ```bash
+    source venv/bin/activate
+    ```
+- Install all required python packages [Make sure to have the virtual environment running]
+  ```bash
+  pip install -r requirements.txt
+  ```
+- To run the application, run the following
+  ```bash
+  streamlit run main.py
+  ```
+- To deactivate virtual environment, run
+  ```bash
+  deactivate
+  ```
+
 ## Usage
 1) **Select Student:** Choose the student for whom you want to record attendance.
 2) **Date Selection:** Select the date for which you want to record attendance.
