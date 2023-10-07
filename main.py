@@ -22,13 +22,9 @@ def updateExcel(name_val,date_val,duration_val,time_val,am_pm_val,present_val,co
         'Time': [timestr],
         'Attendance': [present_val],
         'Comments':[comments],
-        
     }
     df = pd.DataFrame(data = new_data)
     # st.write(new_data)
-
-
-
     with pd.ExcelWriter(file_record,mode='a',engine='openpyxl',if_sheet_exists='overlay') as writer:
         try:
             df.to_excel(writer, sheet_name = name_val, startrow=writer.sheets[name_val].max_row,index = False,header=False)
