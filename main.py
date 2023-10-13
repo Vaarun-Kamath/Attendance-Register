@@ -74,7 +74,7 @@ with tab1:
     # time_val = st.time_input('Class time', time(int(now.hour),int(now.minute)-(int(now.minute)%10)),step=1800)
     time_options = []
     for i in range(1,13):
-        for j in range(0,55,15):
+        for j in range(1,55,15):
             temp = ""
             if i / 10 == 0:
                 temp += f"0{i}"
@@ -99,10 +99,35 @@ with tab1:
 
     # Additional Comments
     comments = st.text_input('Comments')
+class Attendance_Error(Exception):
+     def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+def my_function(duration_val):
+      if duration_val == 0:
+         raise Attendance_Error("Input time should be a non-zero number.")
+
+      if(present_val == "Absent"):
+        duration_val = 0
+        return duration_val
+
+try:
+    duration_val = my_function(duration_val)
+    # ... rest of your code ...
+    submitted = st.button("Submit",on_click=updateExcel,args=(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments))
+
+    if submitted:
+        st.markdown(f":blue[Student]:&emsp;&emsp;{name_val}")
+        # ... rest of your code ...
+except Attendance_Error as e:
+    print(e.message)
+
 
     # If Student is absent then duraiton is 0
     if(present_val == "Absent"):
         duration_val = 0
+
 
     # Submit Button
     submitted = st.button("Submit",on_click=updateExcel,args=(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments))
