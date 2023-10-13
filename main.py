@@ -1,10 +1,25 @@
 import streamlit as st
-from datetime import datetime,date,time
+from datetime import datetime, date, time
 import calendar
 import pandas as pd
 import time
+import os
+from openpyxl import Workbook, load_workbook
 
+# Create or load the Excel file
 file_record = "AttendanceRecord.xlsx"
+
+if not os.path.exists(file_record):
+    # Create a new Excel file with headers
+    workbook = Workbook()
+    sheet = workbook.active
+    sheet.title = "Attendance"
+    sheet.append(["Year", "Date", "Month", "Day", "Duration (Min)", "Time", "Attendance", "Comments"])
+    workbook.save(file_record)
+else:
+    # If the file exists, load it
+    workbook = load_workbook(file_record)
+    sheet = workbook.active
 
 def updateExcel(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments):
     # time_val = time_val.strftime("%H:%M")
