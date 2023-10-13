@@ -148,3 +148,26 @@ with tab3:
 # &nbsp;  1 space.
 # &ensp;  2 spaces.
 # &emsp;  4 spaces.
+
+#   another option where   the user can mark multiple students at once, kind of like how PES lecturers mark attendance.
+
+
+# Multiselect widget for selecting multiple students
+st.title("New MultiStudent Entry")
+selected_students = st.multiselect('Select Students', std_name_l)
+
+
+# Multiselect widget for selecting multiple students
+selected_students = st.multiselect('Select Students', std_name_l)
+
+# Create a unique key for the single "Submit" button
+submit_button_key = "submit_button"
+
+# Create a single "Submit" button
+if st.button("Submit", key=submit_button_key):
+    for selected_student in selected_students:
+        # Update attendance records for each selected student
+        updateExcel(selected_student, date_val, duration_val, time_val, am_pm_val, present_val, comments)
+    
+    # Display the attendance updates for all selected students
+    st.write("Attendance records updated for selected students.")
