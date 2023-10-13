@@ -68,7 +68,8 @@ with tab1:
     # Date input
     date_val = st.date_input("Date",date.today())
     # Duration Input
-    duration_val = st.slider("Duration (Min)",value=45,step=5)
+    duration_val = st.slider("Duration (Min)", min_value=5, value=45, step=5)
+
 
     # Time Input
     # time_val = st.time_input('Class time', time(int(now.hour),int(now.minute)-(int(now.minute)%10)),step=1800)
