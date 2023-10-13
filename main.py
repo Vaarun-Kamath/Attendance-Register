@@ -99,9 +99,30 @@ with tab1:
 
     # Additional Comments
     comments = st.text_input('Comments')
+class Attendance_Error(Exception):
+     def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
 
-    if(duration_val=='0'):
-        present_val = "Absent"
+def my_function(duration_val):
+      if duration_val == 0:
+         raise Attendance_Error("Input time should be a non-zero number.")
+
+      if(present_val == "Absent"):
+        duration_val = 0
+        return duration_val
+
+try:
+    duration_val = my_function(duration_val)
+    # ... rest of your code ...
+    submitted = st.button("Submit",on_click=updateExcel,args=(name_val,date_val,duration_val,time_val,am_pm_val,present_val,comments))
+
+    if submitted:
+        st.markdown(f":blue[Student]:&emsp;&emsp;{name_val}")
+        # ... rest of your code ...
+except Attendance_Error as e:
+    print(e.message)
+
 
     # If Student is absent then duraiton is 0
     if(present_val == "Absent"):
